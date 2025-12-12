@@ -1,0 +1,32 @@
+
+.dtr-details .actions-column {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.dtr-modal .modal-body .btn {
+  margin: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.actions-column .btn {
+  margin: 0 2px;
+}
+
+@media (max-width: 767.98px) {
+  .dtr-bs-modal .modal-body {
+    padding: 20px !important;
+  }
+  
+  .dtr-bs-modal .modal-body .row {
+    margin-bottom: 15px;
+  }
+  
+  .dtr-bs-modal .modal-body .btn {
+    min-width: 40px;
+  }
+}
