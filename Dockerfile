@@ -13,6 +13,8 @@ WORKDIR /var/www/html
 COPY . /var/www/html/
 
 RUN chown -R www-data:www-data /var/www/html
+RUN a2dismod mpm_event mpm_worker || true \
+ && a2enmod mpm_prefork || true
 
 EXPOSE 80
 
