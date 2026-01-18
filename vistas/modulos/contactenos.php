@@ -3,9 +3,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     error_log("POST recibido en contactenos.php: " . print_r($_POST, true));
 }
 
-$conn = new mysqli("localhost", "root", "", "helpdesk");
+$dbHost = getenv('DB_HOST') ?: 'localhost';
+$dbUser = getenv('DB_USER') ?: 'root';
+$dbPass = getenv('DB_PASS') ?: '';
+$dbName = getenv('DB_NAME') ?: 'helpdesk';
+$dbPort = getenv('DB_PORT') ? intval(getenv('DB_PORT')) : 3306;
+
+$conn = new mysqli($dbHost, $dbUser, $dbPass, $dbName, $dbPort);
 if ($conn->connect_error) {
-  die("Conexión fallida: " . $conn->connect_error);
+    die("Conexión fallida: " . $conn->connect_error);
 }
 
 $categorias = $conn->query("SELECT c.id, c.nombre, c.departamento_id, d.nombre as departamento_nombre FROM categorias c LEFT JOIN departamentos d ON c.departamento_id = d.id ORDER BY c.nombre");

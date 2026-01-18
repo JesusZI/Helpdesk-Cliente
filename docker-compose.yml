@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: helpdesk
+      MYSQL_USER: helpdesk_user
+      MYSQL_PASSWORD: helpdesk_pass
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
+
+# Notes:
+# - For production with a managed MySQL, remove or ignore the `db` service and
+#   set `DB_HOST`, `DB_USER`, `DB_PASS`, `DB_NAME`, `DB_PORT` via environment.

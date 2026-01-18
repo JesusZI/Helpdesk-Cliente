@@ -13,7 +13,13 @@ if (!isset($_POST['ticketId']) && !isset($_POST['accion'])) {
     exit;
 }
 
-$conn = new mysqli("localhost", "root", "", "helpdesk");
+$dbHost = getenv('DB_HOST') ?: 'localhost';
+$dbUser = getenv('DB_USER') ?: 'root';
+$dbPass = getenv('DB_PASS') ?: '';
+$dbName = getenv('DB_NAME') ?: 'helpdesk';
+$dbPort = getenv('DB_PORT') ? intval(getenv('DB_PORT')) : 3306;
+
+$conn = new mysqli($dbHost, $dbUser, $dbPass, $dbName, $dbPort);
 if ($conn->connect_error) {
     echo json_encode(['status' => 'error', 'mensaje' => 'Error de conexión']);
     exit;
